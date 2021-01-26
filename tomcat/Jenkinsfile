@@ -24,7 +24,7 @@ pipeline {
                 timeout(time:5, unit:'DAYS'){
                     input message:'APRUEBA DESPLIEGUE A PRODUCTION ?'
                 }
-                build job: 'Deploy_Application_Prod_Env'
+                build job: 'Despliegue_a_Produccion_FRstyle'
             }
         }
     }
