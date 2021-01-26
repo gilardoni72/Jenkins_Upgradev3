@@ -1,20 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Build Application') {
+        stage('Contruccion de Aplicacion') {
             steps {
-                sh 'mvn -f java-tomcat-sample/pom.xml clean package'
+                sh 'mvn -f tomcat/pom.xml clean package'
             }
             post {
                 success {
-                    echo "Now Archiving the Artifacts...."
+                    echo "El Archivo esta Guardado..."
                     archiveArtifacts artifacts: '**/*.war'
                 }
             }
         }
-        stage('Deploy in Staging Environment'){
+        stage('Despliegie a Desarollo'){
             steps{
-                build job: 'Deploy_app_Dev'
+                build job: 'Despliegue_a_Desarollo_FRstyle'
 
             }
             
@@ -22,9 +22,9 @@ pipeline {
         stage('Deploy to Production'){
             steps{
                 timeout(time:5, unit:'DAYS'){
-                    input message:'Aprobacion Deploy a PRODUCTION?'
+                    input message:'Approve PRODUCTION Deployment?'
                 }
-                build job: 'Deploy_app_Prod'
+                build job: 'Deploy_Application_Prod_Env'
             }
         }
     }
